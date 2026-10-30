@@ -3,6 +3,8 @@ import cors from "cors";
 import helmet from "helmet";
 import loginRoutes from "./routes/login.routes";
 import perfilRoutes from "./routes/perfil.routes";
+import tipoUsuario from "./routes/tipoUsuario/tipoUsuario.routes"
+import { notFound } from "./middlewares/notFound";
 
 const app = express();
 
@@ -17,4 +19,12 @@ app.get("/health", (_req, res) => {
 app.use("/api", loginRoutes);
 app.use("/api", perfilRoutes);
 
+
+//---- tipoUusuario
+app.use("/api", tipoUsuario);
+
+
+
+// para cuando no encuentre la api
+app.use(notFound)
 export default app;

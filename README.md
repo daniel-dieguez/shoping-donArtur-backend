@@ -45,8 +45,6 @@ esto es hasta el momento, hare crecer mas los componentes, agregar carpeta de Mo
 - El `.env` está en `.gitignore`; no se sube al repositorio.
 - Se recomienda usar un usuario de BD propio para la app (no `sa`) con permisos limitados.
 
-## Próximos pasos
+## Apoyo
+Utulice la libreria ZOD para simplificar el codigo al momento de enviarlo al controller.
 
-- Control de acceso por roles.
-- Primeras APIs de negocio protegidas con `verificarToken`.
-- Usuario de BD dedicado con permisos mínimos.
