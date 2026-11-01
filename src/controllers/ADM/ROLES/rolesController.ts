@@ -1,7 +1,7 @@
 import { Request, Response } from "express";
-import { getPool, sql } from "../../config/db";
-import { responder } from "../../responses/codes";
-import { RolesModel } from "../../models/ADM/rolesModels";
+import { getPool, sql } from "../../../config/db";
+import { responder } from "../../../responses/codes";
+import { RolesModel } from "../../../models/ADM/ROLES/rolesModels";
 
 
 // siempre colocaremos primero el store, update, estado, select -> misma arquitecura que la del sp mayor facilidad
@@ -88,9 +88,48 @@ export const update = async (req: Request, res: Response): Promise<void> => {
   }
 };
 
+export const estado = async (req: Request, res: Response): Promise<void> => {
+  const body = (req.body ?? {}) as RolesModel;
+  const estado = body.estado;
+  const id = body.id;
+  const usuario = body.usuario;
+
+  
+  if (!id) {
+    responder(res, 1004, undefined, "Debes de enviar un id");
+    return;
+  }
+
+  let pool;
+
+  try {
+    pool = await getPool();
+  } catch (error) {
+    console.error(error);
+    responder(res, 1001);
+    return;
+  }
+
+  try {
+    const result = await pool
+      .request()
+      .input("opcion", sql.Int, 3)
+      .input("estado", sql.Bit, estado)
+      .input("id", sql.Int, id)
+      .input("usuario", sql.Int, usuario)
+      .execute("SP_Modulo_Roles");
+
+    responder(res, 1, result.recordset);
+  } catch (error) {
+    console.error(error);
+    responder(res, 1002);
+  }
+};
+
 
 //-------------- aqui lo demas
-const consultar = async (res: Response, id: number | null): Promise<void> => {
+
+export const all = async (req: Request, res: Response): Promise<void> => {
   let pool;
   try {
     pool = await getPool();
@@ -104,7 +143,6 @@ const consultar = async (res: Response, id: number | null): Promise<void> => {
     const result = await pool
       .request()
       .input("opcion", sql.Int, 4)
-      .input("id", sql.Int, id)
       .execute("SP_Modulo_Roles");
 
     if (result.recordset.length === 0) {
@@ -119,44 +157,15 @@ const consultar = async (res: Response, id: number | null): Promise<void> => {
   }
 };
 
-// post para el all pa
-export const tipoUsuarioAll = async (
-  _req: Request,
-  res: Response,
-): Promise<void> => {
-  await consultar(res, null);
-};
-
-// post para el one
-export const tipoUsuarioOne = async (
-  req: Request,
-  res: Response,
-): Promise<void> => {
+export const one = async (req: Request, res: Response): Promise<void> => {
   const body = (req.body ?? {}) as RolesModel;
-  const id = Number(body.id);
+  const id = body.id;
 
-  if (
-    body.id === undefined ||
-    body.id === null ||
-    !Number.isInteger(id) ||
-    id <= 0
-  ) {
-    responder(
-      res,
-      1004,
-      undefined,
-      "El id es obligatorio y debe ser un número entero positivo",
-    );
+  if (!id) {
+    responder(res, 1004, undefined, "Debes de enviar un id");
     return;
   }
 
-  await consultar(res, id);
-};
-
-export const obtenerTipoUsuario = async (
-  _req: Request,
-  res: Response,
-): Promise<void> => {
   let pool;
 
   try {
@@ -171,12 +180,8 @@ export const obtenerTipoUsuario = async (
     const result = await pool
       .request()
       .input("opcion", sql.Int, 5)
+      .input("id", sql.Int, id)
       .execute("SP_Modulo_Roles");
-
-    if (result.recordset.length === 0) {
-      responder(res, 2009);
-      return;
-    }
 
     responder(res, 1, result.recordset);
   } catch (error) {

@@ -6,7 +6,7 @@ import {
   obtenerTipoUsuario,
   store,
   update
-} from "../../controllers/ADM/tipoUsuarioController";
+} from "../../controllers/ADM/TIPOUSUARIO/tipoUsuarioController";
 
 const router = Router();
 

@@ -1,7 +1,7 @@
 import { Request, Response } from "express";
-import { getPool, sql } from "../../config/db";
-import { responder } from "../../responses/codes";
-import { TipoUsuarioModel } from "../../models/ADM/tipoUsuarioModel";
+import { getPool, sql } from "../../../config/db";
+import { responder } from "../../../responses/codes";
+import { TipoUsuarioModel } from "../../../models/ADM/TIPOUSUARIO/tipoUsuarioModel";
 
 //  ejecuta el SP con la opción 4 para las dos consultas
 const consultar = async (res: Response, id: number | null): Promise<void> => {

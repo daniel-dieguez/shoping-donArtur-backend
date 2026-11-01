@@ -3,8 +3,11 @@ import cors from "cors";
 import helmet from "helmet";
 import loginRoutes from "./routes/login.routes";
 import perfilRoutes from "./routes/perfil.routes";
-import tipoUsuario from "./routes/tipoUsuario/tipoUsuario.routes"
-import roles  from "./routes/roles/roles.routes"
+import tipoUsuario from "./routes/TIPOUSUARIO/tipoUsuario.routes"
+import productos from "./routes/PRODUCTOS/productos.routes"
+import catalogoProductos from "./routes/CATALOGOPRODUCTOS/catalogoProductos.routes"
+
+import roles  from "./routes/ROLES/roles.routes"
 import { notFound } from "./middlewares/notFound";
 
 const app = express();
@@ -23,7 +26,16 @@ app.use("/api", perfilRoutes);
 
 //---- tipoUusuario
 app.use("/api", tipoUsuario);
+
+//roles
 app.use("/api", roles);
+
+//productos
+app.use("/api", productos);
+
+//catalogo productos
+app.use("/api", catalogoProductos);
+
 
 
 
