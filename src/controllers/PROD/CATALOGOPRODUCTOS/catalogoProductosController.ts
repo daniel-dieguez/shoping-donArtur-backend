@@ -3,7 +3,6 @@ import { getPool, sql } from "../../../config/db";
 import { responder } from "../../../responses/codes";
 import { CatalogoProductosModel } from "../../../models/PROD/CATALOGOPRODUCTOS/catalogoProductosModel";
 
-// siempre colocaremos primero el store, update, estado, select -> misma arquitecura que la del sp mayor facilidad
 export const store = async (req: Request, res: Response): Promise<void> => {
   const body = (req.body ?? {}) as CatalogoProductosModel;
   const nombre = body.nombre?.trim();
@@ -142,7 +141,6 @@ export const estado = async (req: Request, res: Response): Promise<void> => {
 //-------------- aqui lo demas
 
 export const all = async (req: Request, res: Response): Promise<void> => {
-  // la paginación viene por query: /catalogo-productos/all?pagina=1&registrosPorPagina=50
   const pagina = Number(req.query.pagina) > 0 ? Number(req.query.pagina) : 1;
   const registrosPorPagina =
     Number(req.query.registrosPorPagina) > 0
