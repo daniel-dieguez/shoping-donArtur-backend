@@ -12,4 +12,5 @@ export interface UsuarioModel {
   passwords?: string;
   pagina?: number;
   registrosPorPagina?: number;
+  IDTipoUsuario?: number;
 }

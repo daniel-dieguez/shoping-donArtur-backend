@@ -17,6 +17,7 @@ export const store = async (req: Request, res: Response): Promise<void> => {
   const roles = body.roles?.trim();
   const passwords = body.passwords; // ya viene cifrado por el middleware
   const usuario = body.usuario;
+  const IDTipoUsuario = body.IDTipoUsuario;
 
   if (!nombre) {
     responder(res, 1004, undefined, "El nombre es obligatorio");
@@ -100,6 +101,7 @@ export const store = async (req: Request, res: Response): Promise<void> => {
       .input("roles", sql.VarChar(128), roles)
       .input("passwords", sql.VarChar(255), passwords)
       .input("usuario", sql.VarChar(50), usuario)
+      .input("IDTipoUsuario", sql.Int, IDTipoUsuario)
       .execute("SP_Modulo_Persona");
 
     responder(res, 1, result.recordset);

@@ -9,6 +9,15 @@ import catalogoProductos from "./routes/CATALOGOPRODUCTOS/catalogoProductos.rout
 import catalogoCupones from "./routes/CATALOGOCUPONES/catalogoCupones.routes"
 import cupones from "./routes/CUPONES/cupones.routes"
 import ubicacion from "./routes/UBICACION/ubicacion.routes"
+import usuario from "./routes/USUARIO/usuario.routes"
+import variante from "./routes/VARIANTES/variantes.routes"
+import inventario from "./routes/INVENTARIO/inventario.routes"
+import carrito from "./routes/CARRITO/carrito.routes"
+import carritoDetalle from "./routes/CARRITODETALLE/carritoDetalle.routes"
+import compras from "./routes/COMPRAS/compras.routes"
+import comprasDetalle from "./routes/COMPRASDETALLE/compraDetalle.routes"
+import pagos from "./routes/PAGOS/pagos.routes"
+import metricas from "./routes/METRICAS/metricas.routes"
 
 import roles  from "./routes/ROLES/roles.routes"
 import { notFound } from "./middlewares/notFound";
@@ -48,7 +57,28 @@ app.use("/api", cupones);
 //ubicaciones 
 app.use("/api", ubicacion);
 
+//user 
+app.use("/api", usuario);
 
+//Variante
+app.use("/api", variante);
+
+//Inventario
+app.use("/api", inventario);
+
+//carrito
+app.use("/api", carrito);
+
+//carritoDetalle
+app.use("/api", carritoDetalle);
+
+//COMPRAS
+app.use("/api", compras);
+
+//COMPRASdetalle
+app.use("/api", comprasDetalle);
+app.use("/api", pagos);
+app.use("/api", metricas);
 
 
 // para cuando no encuentre la api
